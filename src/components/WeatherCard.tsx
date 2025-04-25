@@ -1,13 +1,14 @@
 
 import React from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Sun, Cloud, CloudRain, CloudSnow, CloudLightning } from "lucide-react";
+import { Sun, Cloud, CloudRain, CloudSnow, CloudLightning, MapPin } from "lucide-react";
 
 interface WeatherRecord {
   temperature: string;
   condition: string;
   notes: string;
   date: string;
+  location?: string;
 }
 
 const WeatherIcon = ({ condition }: { condition: string }) => {
@@ -42,9 +43,16 @@ const WeatherCard = ({ record }: { record: WeatherRecord }) => {
       <CardContent className="p-4">
         <div className="mb-2">
           <span className="text-2xl font-bold">{record.temperature}°C</span>
+          
+          {record.location && (
+            <div className="flex items-center gap-1 text-sm text-muted-foreground mt-1">
+              <MapPin className="h-3 w-3" />
+              <span>{record.location}</span>
+            </div>
+          )}
         </div>
         {record.notes && (
-          <p className="text-sm text-muted-foreground">{record.notes}</p>
+          <p className="text-sm text-muted-foreground mt-2">{record.notes}</p>
         )}
       </CardContent>
     </Card>
